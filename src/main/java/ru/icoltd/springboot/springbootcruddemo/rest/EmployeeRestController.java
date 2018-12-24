@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.icoltd.springboot.springbootcruddemo.dao.EmployeeDAO;
 import ru.icoltd.springboot.springbootcruddemo.entity.Employee;
+import ru.icoltd.springboot.springbootcruddemo.service.EmployeeService;
 
 import java.util.List;
 
@@ -13,17 +13,16 @@ import java.util.List;
 @RequestMapping("/api")
 public class EmployeeRestController {
 
-    // temporarily: inject employee dao (use constructor injection)
-    private EmployeeDAO employeeDAO;
+    private EmployeeService employeeService;
 
     @Autowired
-    public EmployeeRestController(EmployeeDAO employeeDAO) {
-        this.employeeDAO = employeeDAO;
+    public EmployeeRestController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     // expose "/employees" and return list of employees
     @GetMapping("/employees")
     public List<Employee> findAll() {
-        return employeeDAO.findAll();
+        return employeeService.findAll();
     }
 }
